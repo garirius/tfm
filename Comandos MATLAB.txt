@@ -1,0 +1,55 @@
+>> ID=inicializarmotorespi_new
+Loading dll ...
+
+ans =
+
+Physik Instrumente, C-843,21200023, V2.1.2.0
+
+ans =
+
+1=M-511.DD
+
+
+MEX-files with .dll extensions will not execute in a future version of MATLAB. 
+
+ans =
+
+2=M-511.DD
+
+
+C843 class object
+ID: 0
+IDN: Physik Instrumente, C-843,21200023, V2.1.2.0
+
+2 possible axes
+4 possible analog inputs
+>> mpirel_new(ID,1,20000)
+>> mpirel_new(ID,1,-20000)
+>> mpirel_new(ID,1,20000)
+>> mpirel_new(ID,1,20000)
+>> mpirel_new(ID,1,-20000)
+>> mpirel_new(ID,1,-20000)
+>> [Cam, DVL, DN] = ListaDispositivos
+ 
+Cam =
+ 
+	COM.IC_ICImagingControl3_1
+
+ 
+DVL =
+ 
+	Interface.ICImagingControl_3.0_Type_Library.IDevices
+
+
+DN = 
+
+    'DMx 72BUC02'
+ 
+>> res = IniciaCamara(Cam,'DMx 72BUC02')
+
+res =
+
+     1
+
+>> LiveVideo(Cam)
+>> StopVideo(Cam)
