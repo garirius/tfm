@@ -9,7 +9,7 @@ z1 = 50e-2;
 z2 = 2*zt;
 f = 5e-2;
 
-%Para varios casos de descolimaciÃ³n
+%Para varios casos de descolimación
 dz = linspace(-zt,zt,numpasos1);
 gamma = zeros(size(dz));
 for n=1:size(gamma)
