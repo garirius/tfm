@@ -20,28 +20,27 @@ function [res,res2] = elipticidad(x,y,phi)
     pos1 = find(d==dmax);
     pos2 = find(d==dmin);
     
+    ph1 = phi(pos1(1)); %angle del màxim
     ph2 = phi(pos2(1)); %angle del mínim
-    %ph1 = phi(pos1(1));
-    ph1 = ph2 + pi/2; %angle del màxim
-    % los ejes de la figura tienen que ser ortogonales
+   
     ph1 = min([ph1, oposto(ph1)]);
     ph2 = min([ph2, oposto(ph2)]);
     
-%     ang = ph1;
-%     opo = oposto(ang);
-%     pos1 = casi(phi,ang);
-%     pos2 = casi(phi,opo);
-%     fuq = [x(pos1) x(pos2)];
-%     fuqme = [y(pos1) y(pos2)];
-%     line(fuq,fuqme);
-%     
-%     ang = ph2;
-%     opo = oposto(ang);
-%     pos1 = casi(phi,ang);
-%     pos2 = casi(phi,opo);
-%     fuq = [x(pos1) x(pos2)];
-%     fuqme = [y(pos1) y(pos2)];
-%     line(fuq,fuqme);
+    ang = ph1;
+    opo = oposto(ang);
+    pos1 = casi(phi,ang);
+    pos2 = casi(phi,opo);
+    fuq = [x(pos1) x(pos2)];
+    fuqme = [y(pos1) y(pos2)];
+    line(fuq,fuqme);
+    
+    ang = ph2;
+    opo = oposto(ang);
+    pos1 = casi(phi,ang);
+    pos2 = casi(phi,opo);
+    fuq = [x(pos1) x(pos2)];
+    fuqme = [y(pos1) y(pos2)];
+    line(fuq,fuqme);
     
     ph1 = pascualangulo(x,y,phi,ph1);
     ph2 = pi - ph1;
