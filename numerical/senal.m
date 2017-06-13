@@ -12,7 +12,7 @@ function s = senal(phi,eje,p,lambda,gamma,z,tam)
                 fac = fac*fourcoef(n)*conj(fourcoef(m))*fourcoef(r);
                 fac = fac*exp(1i*r*(phi+eje*pi/2));
                 fac = fac*sinq(pi*tam*terminus(n,m,r,gamma)/p);
-                fac = fac*exp(1i*q*terminus(n,m,r,gamma)*(tam/2+(eje-1)*tam));
+                fac = fac*exp(1i*q*terminus(n,m,r,gamma)*(2*(eje-1.5)*tam));
                 fac = real(fac);
                 s = s + fac;
             end

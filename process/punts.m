@@ -2,7 +2,7 @@ function [A,B] = punts(perf,perx)
 %Trau els punts corresponents a la figura de Lissajous d'un perfil
 %d'intensitats
 %   name de l'arxiu d'on carregar la info del perfil.
-%   p del període de la màscara (en micres)
+%   p del perï¿½ode de la mï¿½scara (en pÃ­xels)
 
 % pxsize = 2.2;
 % perx = p/pxsize;
@@ -21,6 +21,13 @@ for n=1:2
         end
     end
 end
-plot(A,B,'o');
+
+xm = mean(A);
+ym = mean(B);
+for n=1:8
+    A(n) = A(n)-xm;
+    B(n) = B(n)-ym;
+end
+% plot(A,B,'o');
 end
 
