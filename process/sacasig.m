@@ -36,6 +36,6 @@ for i=1:n
     A(i) = A(i)-xm;
     B(i) = B(i)-ym;
 end
-plot(A,B,'o');
+%plot(A,B,'o');
 end
 
