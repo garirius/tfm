@@ -1,4 +1,4 @@
-function [a,b,c] = elipsajuste(A,B)
+function [r1,r2,s] = elipsajuste(A,B)
 %Realiza un ajuste de una figura de Lissajous dados los puntos A,B
 
 if(size(A)==size(B))

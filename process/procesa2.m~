@@ -1,0 +1,80 @@
+function procesa2(ID,Cam,camara,distancia)
+% distancia en micras
+numeropasos = 1000;
+empieza = 0;
+step = distancia/numeropasos;
+pos = empieza;
+%Inicializamos nuestras mierdas
+IniciaCamara(Cam,camara);
+Cam.ExposureAuto = 0;
+mpiabs_new(ID,1,empieza);    
+
+periodo = 110;
+pxsize = 2.2;
+periodo = periodo/pxsize;
+
+%Cogemos una imagen para saber su tamaño y generar la máscara
+aux = Captura(Cam,camara);
+mask = maskgen(aux,periodo,8,2);
+
+qua = zeros(numeropasos);
+eli = zeros(numeropasos);
+eps = zeros(numeropasos);
+Z = zeros(numeropasos);
+A = zeros(numeropasos,8);
+B = zeros(numeropasos,8);
+
+%vamos tomando medidas
+barra = waitbar(0/numeropasos,'Alcanzando el Nirvana...');
+for i=1:numeropasos
+    %primero que nada, tomar captura
+    imago = Captura(Cam,camara);
+    imago = rgb2gray(imago);
+    
+    %Sacamos los puntos de Lissajous
+    
+    mpiabs_wait_new(ID,1,pos);
+    waitbar(i/numeropasos);
+end
+close(barra);
+
+for k=ind
+    perf = s(k,:);
+    [A(n,:),B(n,:)] = punts(perf,periodo);
+    Z(n) = Y(k);
+    n = n+1;
+end
+
+xm = max(A);
+ym = max(B);
+xm = max([xm,ym]);
+A = A./xm;
+B = B./xm;
+w = waitbar(0,'Procesando...');
+
+for k=1:fu(2)
+    senA = A(k,:);
+    senB = B(k,:);
+    [r1,r2,qua(k)]=elipsajuste(senA,senB);
+    r1 = abs(r1);
+    r2 = abs(r2);
+    if r1 > r2
+        rmax = r1;
+        rmin = r2;
+    else
+        rmax = r2;
+        rmin = r1;
+    end
+    eli(k) = sqrt(1-(rmin/rmax)^2);
+    eps(k) = (r1-r2)/(r1+r2);
+    waitbar(k/m,w);
+end
+close(w);
+
+hold on
+plot(Z,eli,'--');
+plot(Z,eps,'--');
+%plot(Y,qua);
+xlabel('z (\mu m)');
+legend('Elipticidad','Eliptancia');
+end
