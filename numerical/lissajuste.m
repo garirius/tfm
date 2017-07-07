@@ -1,3 +1,5 @@
+function [dz,eli,eps] = lissajuste(zl)
+% zl en micras
 numpasos1 = 100;
 numpasos2 = 200;
 
@@ -7,8 +9,8 @@ tam = 2.07e-3;
 zt = 2*p^2/lambda;
 z1 = 24e-2;
 z2 = zt;
-f = 3e-2;
-zl = 5e-5;
+f = 5e-2;
+zl = zl/1000000;
 %Para varios casos de descolimaci�n
 dz = linspace(-zl,zl,numpasos1);
 gamma = zeros(size(dz));
@@ -65,18 +67,20 @@ leg3 = ['\Delta z =' num2str(zl*1000000) ' \mu m'];
 legend(leg1,leg2,leg3);
 xlabel('S_A (u.a.)');
 ylabel('S_B (u.a.)');
+saveas(h,'lissexample.png');
 hold off
-
-w = figure;
-hold on
+close(h);
+% w = figure;
+% hold on
 dz = dz*1000000;
-plot(dz,eli);
-plot(dz,eps);
-legend('Elipticidad','Eliptancia');
-% [fp, pf, we]=plotyy(dz,eli,dz,eps);
-% ylabel(fp(1),'Elipticidad');
-% ylabel(fp(2),'Eliptancia');
-title('Elipticidades');
-xlabel('Desenfoque (\mu m)');
-grid on
+% plot(dz,eli);
+% plot(dz,eps);
+% legend('Elipticidad','Eliptancia');
+% % [fp, pf, we]=plotyy(dz,eli,dz,eps);
+% % ylabel(fp(1),'Elipticidad');
+% % ylabel(fp(2),'Eliptancia');
+% title('Elipticidades');
+% xlabel('Desenfoque (\mu m)');
+% grid on
+end
     
