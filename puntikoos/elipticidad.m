@@ -51,5 +51,6 @@ function [res,res2] = elipticidad(a,b,phi)
     end
     
     res = sqrt(1-(dmin/dmax).^2);
-    res2 = 1-(dx/dy)^2; %(dy-dx)/(dx+dy);
+    res2 = 1 - (dx/dy)^2;
+         
 end

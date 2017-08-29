@@ -1,7 +1,8 @@
-function [dz,eli,eps] = lissajuste(zl)
+function puntikus(zl)
 % zl en micras
-numpasos1 = 201;
-numpasos2 = 4;
+numpasos1 = 3;
+numpasos2 = 200;
+numpasos3 = 8;
 
 p = 110e-6;
 lambda = 595e-9;
@@ -21,16 +22,13 @@ end
 
 x = zeros(numpasos2,1);
 y = zeros(numpasos2,1);
-eli = zeros(numpasos1,1);
-eps = zeros(numpasos1,1);
 
 critm = round(numpasos1/2);
 critt = numpasos1;
-plot(dz,gamma)
 tope = zeros(numpasos2,2);
 lowe = zeros(numpasos2,2);
 mide = zeros(numpasos2,2);
-phi = [pi/4 3*pi/4 5*pi/4 7*pi/4];%linspace(0,2*pi,numpasos2);
+phi = linspace(0,2*pi,numpasos2);
 h1 = waitbar(0,'Calculando...');
 
 for n=1:numpasos1
@@ -51,16 +49,13 @@ for n=1:numpasos1
         end
     end
     %plot(x(n,:),y(n,:));
-    [eli(n),eps(n)]=elipticidad(x(n,:),y(n,:),phi);
-    waitbar(n/numpasos1,h1);
+    waitbar(n/(2*numpasos1),h1);
 end
-close(h1);
-hold off
 h = figure;
 hold on
-plot(lowe(:,1),lowe(:,2),'LineWidth',1.5)
-plot(mide(:,1),mide(:,2),'LineWidth',1.5)
-plot(tope(:,1),tope(:,2),'LineWidth',1.5)
+plot(lowe(:,1),lowe(:,2),'LineWidth',1)
+plot(mide(:,1),mide(:,2),'LineWidth',1)
+plot(tope(:,1),tope(:,2),'LineWidth',1)
 %title('Figuras de Lissajous varias');
 leg1 = ['\Delta z =' num2str(-zl*1000000) ' \mu m'];
 leg2 = ['\Delta z = 0 \mu m'];
@@ -68,20 +63,23 @@ leg3 = ['\Delta z =' num2str(zl*1000000) ' \mu m'];
 legend(leg1,leg2,leg3);
 xlabel('S_A (u.a.)');
 ylabel('S_B (u.a.)');
-saveas(h,'lissexample.png');
+
+phi = [0 pi/4 pi/2 3*pi/4 pi 5*pi/4 3*pi/2 7*pi/4];
+x = zeros(numpasos3,1);
+y = zeros(numpasos3,1);
+set(gca, 'ColorOrderIndex', 1);
+for n=1:numpasos1
+    g = gamma(n);
+    for m=1:numpasos3
+        fi = phi(m);
+        x(n,m)=real(senal(fi,1,p,lambda,g,z2,tam));
+        y(n,m)=real(senal(fi,2,p,lambda,g,z2,tam));
+    end
+    plot(x(n,:),y(n,:),'o','MarkerSize',10,'LineWidth',2);
+    waitbar(0.5+n/numpasos1,h1);
+end
+close(h1);
+saveas(h,'puntikus.png');
 hold off
-close(h);
-% w = figure;
-hold on
-dz = dz*1000000;
-plot(dz,eli);
-plot(dz,eps);
-legend('Elipticidad','Eliptancia');
-% [fp, pf, we]=plotyy(dz,eli,dz,eps);
-% ylabel(fp(1),'Elipticidad');
-% ylabel(fp(2),'Eliptancia');
-title('Elipticidades');
-xlabel('Desenfoque (\mu m)');
-grid on
 end
     
